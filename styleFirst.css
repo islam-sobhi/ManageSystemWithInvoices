@@ -1,0 +1,45 @@
+body{ background-color: #F1F1F1 }
+#container { margin: 0 auto; width: 500px; padding-top: 150px;margin-right: 276px; } 
+#cont{ margin: 0 auto; width: 500px;margin-right: 276px; } 
+/*#container .addprod { margin: 0 auto; width: 500px; padding-top: 0px; } */
+.lbl { padding-top: 0px; float: left;color: #000; font-size: 1.25rem;
+  
+font-weight: 300;
+text-align: end;} 
+#markaName{ width:250px; margin-right: 10px; } 
+#opdel{ padding-left: 50px; }
+/*input, textarea,select { float: left; clear: right; height: 35px; font-size: 18px; margin-top: 2px; } */
+#submit { margin-left: 206px;
+margin-top: 20px;
+color: white;
+height: 35px;
+cursor: pointer;
+/*width: 113px;*/
+} 
+.subclass { margin-left: 206px;
+margin-top: 20px;
+color: white;
+height: 35px;
+cursor: pointer;
+/*width: 113px;*/
+} 
+#submitAdd{ margin-left: 205px;
+margin-top: 15px;
+color: White;
+height: 40px;
+cursor: pointer;
+font-size: 18px;
+width: 142px;} 
+.warning { border: 2px dotted red; color: cornflowerblue; padding:10px; background-color: pink; margin-top: 30px; }
+.clear { clear: both; }
+a{ text-decoration: none; text-decoration-color:none; }
+#contentDiv{  background-color: #F1F1F1;text-align: center;color: black;font-size: 14px;font-family: sans-serif;}
+#ful{padding-top: 80px;padding-bottom: 50px;max-width: 520px;}
+#dataTable{
+    margin-left: 200px;
+}
+.leadArab{
+    font-size: 1.25rem;
+font-weight: 300;
+text-align: end;
+}
