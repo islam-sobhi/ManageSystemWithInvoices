@@ -1,5 +1,5 @@
 <?php 
-include('config.php'); 
+include('query/config.php'); 
         $getProd=$con->query("SELECT * FROM `product` p INNER join prod_marka m on p.`markaID`=m.markaID 
         inner JOIN categmain c on c.categMID=p.categMID INNER JOIN supplier s on s.id=p.`supplier_id` ");
 
@@ -9,132 +9,126 @@ include('config.php');
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="add_subjects">
-    <title>All Prdoduct</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="add_subjects">
+  <title>All Prdoduct</title>
 
-    <link rel="stylesheet" href="../invoiceSystem/js2/bootstrap.css">
-    
-    
-              <!-- Bootstrap core CSS-->
+  <link rel="stylesheet" href="../invoiceSystem/js2/bootstrap.css">
+
+
+  <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
-    <script src="../invoiceSystem/js2/jquery-3.1.1.min.js"></script>
+  <script src="../invoiceSystem/js2/jquery-3.1.1.min.js"></script>
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Page level plugin CSS-->
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-    <script src="../invoiceSystem/js2/ajax.js"></script>
+  <script src="../invoiceSystem/js2/ajax.js"></script>
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
-   <link rel="stylesheet" href="../invoiceSystem/js2/allproduct.css">
+  <link rel="stylesheet" href="../invoiceSystem/js2/allproduct.css">
 </head>
 
 <body>
-     <?php include 'myNav.php';?>
-    
-        <!-------------------<div class="container-center">---------------------------------------------->
-         <div class="container-fluid">
-      <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">product</li>
-      </ol>
-      <!-- Example DataTables Card-->
-      <div class="card mb-3">
-        <div class="card-header">
-          <i class="fa fa-table"></i> All Product </div>
-        <div class="card-body">
-         <div class="table-responsive">
-      <table border="0" class="table table-sm " id="example" >
+  <?php include 'myNav.php';?>
+
+  <!-------------------<div class="container-center">---------------------------------------------->
+  <div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active">product</li>
+    </ol>
+    <!-- Example DataTables Card-->
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa fa-table"></i> All Product </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table border="0" class="table table-sm " id="example">
             <!-- <table class="table table-bordered" >  -->
             <thead>
-                <tr class="table-primary" style="text-align:center;color:white;margin-left:150px;">
-                  <th >عملية</th>
-                   <th >الكمية</th>                   
-                    <th > Price</th>
-                   <th >المورد</th>
-                   <th >القسم</th>
-                    <th >العلامة</th>
-                   
-<th > كود المنتج </th>
-                    <th >وصف المنتج</th>
-                    <th >الإسم عربي</th>
-                  
+              <tr class="table-primary" style="text-align:center;color:white;margin-left:150px;">
+                <th>عملية</th>
+                <th>الكمية</th>
+                <th> Price</th>
+                <th>المورد</th>
+                <th>القسم</th>
+                <th>العلامة</th>
 
-                </tr>
-              
-                </tr>
+                <th> كود المنتج </th>
+                <th>وصف المنتج</th>
+                <th>الإسم عربي</th>
+
+
+              </tr>
+
+              </tr>
             </thead>
-          
-             <tbody>
-                <?php  $x= 1; while ($prod=mysqli_fetch_assoc($getProd)) { ?>
-                        <tr>
-                            <!-- href="add_subjects.php?prodCode=<?php //echo $prod['prodCode'];?>&operation=delete" -->
-           
 
-                            <td ><a href="AddProductQuery.php?prodCode=<?php echo $prod['prodCode'];?>&operation=delete">&nbsp;&nbsp;&nbsp;Delete</a></td>
-                              <td >
-                                 <?php  echo "<input type='number' value='".$prod['prodQuant']."' onchange=getQuant(this.value,".$prod['prodID'].") />" ?>
-                            </td>
-                          
-                            <td >
-                                <?php  echo "<input type='number' value='".$prod['prodPrice']."' onchange=getprice(this.value,".$prod['prodID'].") />" ?>
-                            </td>
-                            
-                            <td >
-                                <?php echo $prod['supname']; ?>
-                            </td>
-                            <td >
-                                <?php echo $prod['categMainName']; ?>
-                            </td>
-                            <td >
-                                <?php echo $prod['markaName']; ?>
-                            </td>
-                          
-                          
-                            <td>
-                                <?php echo $prod['prodCode']; ?>
-                            </td>
-
-                            <td >
-                                <?php echo $prod['prodDescrp']; ?>
-                            </td>
-                            
-
-                            <td >
-                                <?php echo $prod['prodName']; ?>
-
-                            </td>
-                          
-
-                           
+            <tbody>
+              <?php  $x= 1; while ($prod=mysqli_fetch_assoc($getProd)) { ?>
+              <tr>
+                <!-- href="add_subjects.php?prodCode=<?php //echo $prod['prodCode'];?>&operation=delete" -->
 
 
-                        </tr>
-                        <?php $x++ ; }?>
-              </tbody>
-        </table>
-        
-          </div>
+                <td><a href="AddProductQuery.php?prodCode=<?php echo $prod['prodCode'];?>&operation=delete">&nbsp;&nbsp;&nbsp;Delete</a></td>
+                <td>
+                  <?php  echo "<input type='number' value='".$prod['prodQuant']."' onchange=getQuant(this.value,".$prod['prodID'].") />" ?>
+                </td>
+
+                <td>
+                  <?php  echo "<input type='number' value='".$prod['prodPrice']."' onchange=getprice(this.value,".$prod['prodID'].") />" ?>
+                </td>
+
+                <td>
+                  <?php echo $prod['supname']; ?>
+                </td>
+                <td>
+                  <?php echo $prod['categMainName']; ?>
+                </td>
+                <td>
+                  <?php echo $prod['markaName']; ?>
+                </td>
+
+
+                <td>
+                  <?php echo $prod['prodCode']; ?>
+                </td>
+
+                <td>
+                  <?php echo $prod['prodDescrp']; ?>
+                </td>
+
+
+                <td>
+                  <?php echo $prod['prodName']; ?>
+                </td>
+              </tr>
+              <?php $x++ ; }?>
+            </tbody>
+          </table>
+
         </div>
       </div>
     </div>
-        
-        
-    <script src="../js2/jquery-3.1.1.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script
+  </div>
+
+
+  <script src="../js2/jquery-3.1.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script
 
 <script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/dataTables/jquery.dataTables.js"></script>
-<script src="/js/dataTables/dataTables.bootstrap.min.js"></script>
- 
-<script type="text/javascript">
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/dataTables/jquery.dataTables.js"></script>
+  <script src="/js/dataTables/dataTables.bootstrap.min.js"></script>
+
+  <script type="text/javascript">
 var tableToExcel = (function() {
   var uri = 'data:application/vnd.ms-excel;base64,'
     , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
@@ -147,22 +141,16 @@ var tableToExcel = (function() {
   }
 })()
 </script>
-
-
-
-        
-  
-
-     <script type="text/javascript">
+  <script type="text/javascript">
     function getprice(val,id){
      
-          $.post("AddProductQuery.php?getprice",{id:id,val:val},function(data){
+          $.post("query/AddProductQuery.php?getprice",{id:id,val:val},function(data){
             //  alert(data);
        });
     }
           function getQuant(valq,idq){
          
-          $.post("AddProductQuery.php?getQuant",{idq:idq,valq:valq},function(data){
+          $.post("query/AddProductQuery.php?getQuant",{idq:idq,valq:valq},function(data){
              // alert(data);
        });
     }
@@ -170,31 +158,31 @@ var tableToExcel = (function() {
          
    
     </script>
-      <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <!-- Page level plugin JavaScript-->
-        <script src="vendor/chart.js/Chart.min.js"></script>
-        <script src="vendor/datatables/jquery.dataTables.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin.min.js"></script>
-        <!-- Custom scripts for this page-->
-  
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Page level plugin JavaScript-->
+  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
+  <!-- Custom scripts for this page-->
 
-          <script src="js/dataTables/buttons.print.min.js"></script>
-            <script src="js/dataTables/dataTables.buttons.min.js"></script>
-              <script src="js/dataTables/vfs_fonts.js"></script>
-                <script src="js/dataTables/pdfmake.min.js"></script>
-                 <script src="js/dataTables/dataTables.buttons.min.js"></script>
-                  <script src="js/dataTables/buttons.flash.min.js"></script>
-                  <script src="js/dataTables/buttons.print.min.js"></script>
-                  <script src="js/dataTables/buttons.html5.min.js"></script>
-                
-                
-        <script type="text/javascript">
+
+  <script src="js/dataTables/buttons.print.min.js"></script>
+  <script src="js/dataTables/dataTables.buttons.min.js"></script>
+  <script src="js/dataTables/vfs_fonts.js"></script>
+  <script src="js/dataTables/pdfmake.min.js"></script>
+  <script src="js/dataTables/dataTables.buttons.min.js"></script>
+  <script src="js/dataTables/buttons.flash.min.js"></script>
+  <script src="js/dataTables/buttons.print.min.js"></script>
+  <script src="js/dataTables/buttons.html5.min.js"></script>
+
+
+  <script type="text/javascript">
 
 $(document).ready(function() {
     $('#example').DataTable( {

@@ -1,5 +1,5 @@
 <?php 
-include('config.php'); 
+include('query/config.php'); 
         $getImag=$con->query("select *from product_picture");
 		$CatMain=$con->query("SELECT * FROM categmain ");
 		$CatBranch=$con->query("SELECT * FROM categbranch ");
@@ -12,7 +12,7 @@ include('config.php');
 <html>
 
 <head>
-    <title>add New Product</title>
+    <title>Add New Product</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../invoiceSystem/styleFirst.css">
     <script src="../invoiceSystem/js2/jquery-3.1.1.min.js"></script>
@@ -77,13 +77,7 @@ include('config.php');
 				     <option value="<?php  echo  $MainName['categMID']?>"><?php  echo $MainName['categMainName'] ?></option>
 				 <?php  } ?>
 			</select> <br />
-
-
-            <label class="lbl">Branch Category :</label>
-            <select id="categBranch" name="categBranch" class="selectprob">
-				     <option>select Branch</option>
-			</select>
-            <br />
+         
             <div class="form-group">
                 <label class="lbl"> Model :</label>
                 <select class="selectprob" id="Marka" name="Marka">
@@ -103,7 +97,7 @@ include('config.php');
             <label class="lbl">Product Price sell :</label>
             <input type="text" name="price" id="price" class="selectprob">
             <label class="lbl">Product Price buy :</label>
-            <input type="text" name="pricesell" id="pricesell" class="selectprob">
+            <input type="text" name="pricBuy" id="pricBuy" class="selectprob">
             <div class="clear"></div>
             <br/><label class="lbl">Product code :</label>
             <input type="text" name="code" id="code" class="selectprob">
@@ -120,33 +114,10 @@ include('config.php');
     <script src="js2/index.js"></script>
     <script type="text/javascript">
                     
-           $(document).ready(function (e){
-                $("#ful").on('submit',function(e){
-                    e.preventDefault();
-                  
-                   prodID= $("#prodID").val()
-                    $.ajax({
-                        type:"POST",
-                        url:"AddProductQuery.php?image&prodID="+prodID ,
-                        data:new FormData(this),
-                        contentType:false,
-                            cache:false,
-                            processData:false,
-                            beforSend:function(){
-                            },
-                                success:function(data){
-                                  $("#getImage").append(data)
-                                  $("#img").hide();
-                                }
-                    })
-                   
-                });
-   
-           });
             
             $("#categMID").change(function(){
                     var catID=$("#categMID").val();
-                     $.post("AddProductQuery.php?categMID",{catID:catID},function(data){
+                     $.post("query/AddProductQuery.php?categMID",{catID:catID},function(data){
                          $("#categBranch").html(data)
                      })
                 });
@@ -164,6 +135,9 @@ include('config.php');
                  var  marID=$("#Marka").val();
 
                  var  pric=$("#price").val();
+
+                 
+                 var  pricBuy=$("#pricBuy").val();
 
                  var  quant=$("#quant").val();
 
@@ -196,8 +170,8 @@ include('config.php');
                        
                         window.location.reload(true);
                    }
-                           alert(pname + pdescr + pric + quant + catID + marID + code)    
-$.post("AddProductQuery.php?submitAdd",{pname:pname,pdescr:pdescr,pric:pric,quant:quant,catID:catID,marID:marID,code:code,sup:sup},function(data){
+                           alert(pname + pdescr + pric + quant + catID + marID + code + pricBuy)    
+$.post("query/AddProductQuery.php?submitAdd",{pname:pname,pdescr:pdescr,pric:pric,quant:quant,catID:catID,marID:marID,code:code,sup:sup,pricBuy:pricBuy},function(data){
            //  alert(data)
                 window.location.reload(true);
     
@@ -205,124 +179,8 @@ $.post("AddProductQuery.php?submitAdd",{pname:pname,pdescr:pdescr,pric:pric,quan
                    
          
                 });
-             $("#img").change(function(e){
-
-                     $("#ful").submit();
-                     });
-        /******** Size ***********/
-         $("#sizes").change(function(e){
-             prodID= $("#prodID").val()
-             var s=$("#sizes").val();
-             if($("#sizes").is(":checked")){
-                 $("#sizeNo").prop('disabled',true);
-                  $.post("AddProductQuery.php?sizes",{s:s,prodID:prodID},function(data){
-                        
-                     });
-             }else{
-                 $("#sizeNo").prop('disabled',false);
-                 $.post("AddProductQuery.php?sizeds",{s:s,prodID:prodID},function(data){
-                        
-                     });
-             }
-            
-            
-         });
-          $("#sizex").change(function(e){
-             prodID= $("#prodID").val()
-             var x=$("#sizex").val();
-              
-               if($("#sizex").is(":checked")){
-                 $("#sizeNo").prop('disabled',true);
-                   $.post("AddProductQuery.php?sizex",{x:x,prodID:prodID},function(data){
-                        
-             });
-             }else{
-                 $("#sizeNo").prop('disabled',false);
-            $.post("AddProductQuery.php?sizexds",{x:x,prodID:prodID},function(data){
-                        
-             });
-             }
-              
-            
-         });
-          $("#sizel").change(function(e){
-             prodID= $("#prodID").val()
-             var l=$("#sizel").val();
-              
-               if($("#sizel").is(":checked")){
-                 $("#sizeNo").prop('disabled',true);
-                    $.post("AddProductQuery.php?sizel",{l:l,prodID:prodID},function(data){
-                        
-                     });
-             }else{
-                 $("#sizeNo").prop('disabled',false);
-                 $.post("AddProductQuery.php?sizelds",{l:l,prodID:prodID},function(data){
-                        
-                     });
-             }
-              
-            
-         });
-          $("#sizem").change(function(e){
-             prodID= $("#prodID").val()
-             var m=$("#sizem").val();
-              
-                if($("#sizem").is(":checked")){
-                 $("#sizeNo").prop('disabled',true);
-                    $.post("AddProductQuery.php?sizem",{m:m,prodID:prodID},function(data){
-                        
-                     });
-             }else{
-                 $("#sizeNo").prop('disabled',false);
-                  $.post("AddProductQuery.php?sizemds",{m:m,prodID:prodID},function(data){
-                        
-                     });
-                 
-             }
-              
-             
-         });
-          $("#sizexl").change(function(e){
-             prodID= $("#prodID").val()
-             var xl=$("#sizexl").val();
-              
-               if($("#sizexl").is(":checked")){
-                 $("#sizeNo").prop('disabled',true);
-                    $.post("AddProductQuery.php?sizexlds",{xl:xl,prodID:prodID},function(data){
-                        
-                     });
-             }else{
-                 $("#sizeNo").prop('disabled',false);
-             }
-              
-            
-         });
-          $("#sizexx").change(function(e){
-             prodID= $("#prodID").val()
-             var xx=$("#sizexx").val();
-              
-               if($("#sizexx").is(":checked")){
-                 $("#sizeNo").prop('disabled',true);
-                    $.post("AddProductQuery.php?sizexxds",{xx:xx,prodID:prodID},function(data){
-                        
-                     });
-             }else{
-                 $("#sizeNo").prop('disabled',false);
-                  $.post("AddProductQuery.php?sizexxds",{xx:xx,prodID:prodID},function(data){
-                        
-                     });
-             }
-              
-            
-         });
-
-            function getColor(id)
-             {
-                  var col=$("#"+id).val();
-                  $.post("AddProductQuery.php?color",{color:col,id:id},function(data){
-                       $("#img").show();
-                  });
-              }
+         
+       
 			</script>
 
     <div class="addpro">
@@ -334,17 +192,17 @@ $.post("AddProductQuery.php?submitAdd",{pname:pname,pdescr:pdescr,pric:pric,quan
     </div>
     <?php  } ?>
 
-  <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <!-- Page level plugin JavaScript-->
-        <script src="vendor/chart.js/Chart.min.js"></script>
-        <script src="vendor/datatables/jquery.dataTables.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.min.js"></script>
 </body>
 
 </html>

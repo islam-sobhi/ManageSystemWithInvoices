@@ -1,5 +1,5 @@
 <?php 
-include('config.php'); 
+include('query/config.php'); 
         $getProd=$con->query("SELECT * FROM `product` p INNER join prod_marka m on p.`markaID`=m.markaID  inner JOIN categmain c on c.categMID=p.categMID INNER JOIN supplier s on s.id=p.`supplier_id` WHERE `prodQuant`<=50 ");
 
 ?>
@@ -12,11 +12,9 @@ include('config.php');
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="add_subjects">
-  <title>All Prdoduct</title>
+  <title>Statistic</title>
 
   <link rel="stylesheet" href="../invoiceSystem/js2/bootstrap.css">
-
-
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -33,7 +31,7 @@ include('config.php');
 <body>
   <?php include 'myNav.php';?>
 
-  <!------------------- <div class="container-center"> -------------------------------------------- -->
+  <!--  <div class="container-center">  -->
   <div class="container-fluid">
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
@@ -128,59 +126,50 @@ include('config.php');
     <div class="row">
 
       <div class="col-md-12 col-md-offset-2">
-<div class="card">
-  <h5 class="card-header">Searching ...</h5>
-  <div class="card-body">
-    <h5 class="card-title">The total amount of the bills
- </h5>
-        <div class="form-group row">
-  <label for="example-date-input" class="col-2 col-form-label">From</label>
-  <div class="col-10">
-    <input class="form-control" type="date" value="2011-08-19" id="dfrom">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-month-input" class="col-2 col-form-label">To</label>
-  <div class="col-10">
-    <input class="form-control" type="date" value="2011-08" id="tdate">
-  </div>
-</div>
+        <div class="card">
+          <h5 class="card-header">Searching ...</h5>
+          <div class="card-body">
+            <h5 class="card-title">The total amount of the bills
+            </h5>
+            <div class="form-group row">
+              <label for="example-date-input" class="col-2 col-form-label">From</label>
+              <div class="col-10">
+                <input class="form-control" type="date" value="2011-08-19" id="dfrom">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="example-month-input" class="col-2 col-form-label">To</label>
+              <div class="col-10">
+                <input class="form-control" type="date" value="2011-08" id="tdate">
+              </div>
+            </div>
 
 
-<div class="offset-sm-2 col-sm-10">
-        <button type="button" class="btn btn-primary" onclick="search()">Search</button>
-      </div>
-
-              
-    <div class="card-text" style=" color: red; text-align: center; font-size: 36px;font-weight: bold;"><span id="ressearch" ></span> $</div>
-    <a href="#" ></a>
-  </div>
-</div>
+            <div class="offset-sm-2 col-sm-10">
+              <button type="button" class="btn btn-primary" onclick="search()">Search</button>
+            </div>
 
 
-
-
-
-
-
-
-
-</div>
-
+            <div class="card-text" style=" color: red; text-align: center; font-size: 36px;font-weight: bold;"><span id="ressearch"></span> $</div>
+            <a href="#"></a>
           </div>
         </div>
+      </div>
+
+    </div>
+  </div>
 
 
-      <script src="../js2/jquery-3.1.1.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-      <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script
+  <script src="../js2/jquery-3.1.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 <script src="/js/jquery.min.js"></script>
-      <script src="/js/bootstrap.min.js"></script>
-      <script src="/js/dataTables/jquery.dataTables.js"></script>
-      <script src="/js/dataTables/dataTables.bootstrap.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/dataTables/jquery.dataTables.js"></script>
+  <script src="/js/dataTables/dataTables.bootstrap.min.js"></script>
 
-      <script type="text/javascript">
+  <script type="text/javascript">
 var tableToExcel = (function() {
   var uri = 'data:application/vnd.ms-excel;base64,'
     , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
@@ -194,21 +183,16 @@ var tableToExcel = (function() {
 })()
 </script>
 
-
-
-
-
-
-      <script type="text/javascript">
+  <script type="text/javascript">
     function getprice(val,id){
      
-          $.post("AddProductQuery.php?getprice",{id:id,val:val},function(data){
+          $.post("query/AddProductQuery.php?getprice",{id:id,val:val},function(data){
             //  alert(data);
        });
     }
           function getQuant(valq,idq){
          
-          $.post("AddProductQuery.php?getQuant",{idq:idq,valq:valq},function(data){
+          $.post("query/AddProductQuery.php?getQuant",{idq:idq,valq:valq},function(data){
              // alert(data);
        });
     }
@@ -218,7 +202,7 @@ var tableToExcel = (function() {
          tdate=$("#tdate").val()
 
      
-         $.post("AddProductQuery.php?search",{dfrom:dfrom,tdate:tdate},function(data){
+         $.post("query/AddProductQuery.php?search",{dfrom:dfrom,tdate:tdate},function(data){
           // alert(data[0]);
            if(data=='')
            {
@@ -232,31 +216,31 @@ var tableToExcel = (function() {
       }   
    
     </script>
-      <!-- Bootstrap core JavaScript-->
-      <script src="vendor/jquery/jquery.min.js"></script>
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <!-- Core plugin JavaScript-->
-      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-      <!-- Page level plugin JavaScript-->
-      <script src="vendor/chart.js/Chart.min.js"></script>
-      <script src="vendor/datatables/jquery.dataTables.js"></script>
-      <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-      <!-- Custom scripts for all pages-->
-      <script src="js/sb-admin.min.js"></script>
-      <!-- Custom scripts for this page-->
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Page level plugin JavaScript-->
+  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
+  <!-- Custom scripts for this page-->
 
 
-      <script src="js/dataTables/buttons.print.min.js"></script>
-      <script src="js/dataTables/dataTables.buttons.min.js"></script>
-      <script src="js/dataTables/vfs_fonts.js"></script>
-      <script src="js/dataTables/pdfmake.min.js"></script>
-      <script src="js/dataTables/dataTables.buttons.min.js"></script>
-      <script src="js/dataTables/buttons.flash.min.js"></script>
-      <script src="js/dataTables/buttons.print.min.js"></script>
-      <script src="js/dataTables/buttons.html5.min.js"></script>
+  <script src="js/dataTables/buttons.print.min.js"></script>
+  <script src="js/dataTables/dataTables.buttons.min.js"></script>
+  <script src="js/dataTables/vfs_fonts.js"></script>
+  <script src="js/dataTables/pdfmake.min.js"></script>
+  <script src="js/dataTables/dataTables.buttons.min.js"></script>
+  <script src="js/dataTables/buttons.flash.min.js"></script>
+  <script src="js/dataTables/buttons.print.min.js"></script>
+  <script src="js/dataTables/buttons.html5.min.js"></script>
 
 
-      <script type="text/javascript">
+  <script type="text/javascript">
 
 $(document).ready(function() {
     $('#example').DataTable( {

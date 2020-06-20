@@ -1,65 +1,103 @@
 <?php 
 
-include('config.php'); 
+include('query/config.php'); 
         $ordno=$con->query(" SELECT `ord_id` FROM `order` ORDER BY `order`.`ord_id` DESC LIMIT 1 ");
 ?>
 
-<html>  
-    <head>  
-        <title>create invoice</title>  
-             <link rel="stylesheet" href="styleFirst.css">
-  <!-- Bootstrap core CSS-->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom fonts for this template-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+<html>
+
+<head>
+    <title>create invoice</title>
+    <link rel="stylesheet" href="styleFirst.css">
+    <!-- Bootstrap core CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Page level plugin CSS-->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <script src="../invoiceSystem/js2/jquery-3.1.1.min.js"></script>
     <script src="../invoiceSystem/js2/valid.js"></script>
-  <script src="../invoiceSystem/js2/ajax.js"></script>
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+    <script src="../invoiceSystem/js2/ajax.js"></script>
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+    function reload()
+{
+           location.reload();
+return false;
+}
+
+  function printData()
+{
+   var divToPrint=document.getElementById("printTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+}
 
 
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    </head>  
-    <body>  
-        <div class="container" >
-   <br />
-     <?php include 'myNav.php';?>
-   <h3 align="center"> <a href="index.php"></a></h3><br /><br />
+        function printbill(){
+        alert("welcome to print");
+         var ordno=$("#invoice_no").val();
+               //   alert(ordno)
+
+          $.post("query/createInvoiceQuery.php?print",{ordno:ordno},function(data){
+              $("#resultprint").html(data)
+                        printData(); 
+                       location.reload();
+return false;
+                     }) ;
+         
+}
+
+  </script>
+    <scr </head>
+
+        <body>
+            <div class="container">
+                <br />
+                <?php include 'myNav.php';?>
+                <h3 align="center">
+                    <a href="index.php"></a>
+                </h3><br /><br />
 
 
-			</address>
-		
- 
-   <form method="post" id="user_form">
-   	<table class="meta">
+                </address>
+                <p id="resultprint"></p>
 
-             	<tr>
-					<th><span contenteditable>Customer Name </span></th>
-					<td><span contenteditable><input type="text" value="custmer" name="customer" id="customer"/>
+
+                <form method="post" id="user_form">
+                    <table class="meta">
+
+                        <tr>
+                            <th><span contenteditable>Customer Name </span></th>
+                            <td><span contenteditable><input type="text" value="custmer" name="customer" id="customer"/>
 
                     </span></td>
-				</tr>
+                        </tr>
 
-				<tr>
-					<th><span contenteditable>Invoice #</span></th>
-					<td><span contenteditable>
+                        <tr>
+                            <th><span contenteditable>Invoice #</span></th>
+                            <td><span contenteditable>
                 <?php  $x= 1; while ($ordno2=mysqli_fetch_assoc($ordno)) { ?>
                     <input type="text" value="<?php echo $ordno2['ord_id']+1;  ;?>"  name="invoice_no" id="invoice_no"/>
                  <?php } ?>   
                     </span></td>
-				</tr>  
-				<tr>
-					<th><span contenteditable>Date</span></th>
-					<td><span contenteditable><input  value="<?php print(date('Y/m/d')); ?>" name="date" id="date"/></span></td>
-				</tr>
-				<tr>
-					<th><label>Amount Due</label></th>
-					<td></span><span><input type="text" id="totalBill" name="totalBill">$</td>
+                        </tr>
+                        <tr>
+                            <th><span contenteditable>Date</span></th>
+                            <td><span contenteditable><input  value="<?php print(date('Y/m/d')); ?>" name="date" id="date"/></span></td>
+                        </tr>
+                        <tr>
+                            <th><label>Amount Due</label></th>
+                            <td>
+                                </span><span><input type="text" id="totalBill" name="totalBill">$</td>
 				</tr>
 			</table>
   <br />
@@ -87,36 +125,45 @@ include('config.php');
    </form>
 
    <br />
+     <div align="center" style="    margin-bottom: 50px;">
+   <button name="print" id="print" class="btn btn-primary" onclick="printbill()">Print Invoice</button>
+   <button name="print" id="" class="btn btn-primary" onclick="reload()">New Invoice</button>
+  </div>
   </div>
   <div id="user_dialog" title="Add Data">
    <div class="form-group">
     <label>Enter Code Name</label>
     <input type="text" name="product_name" id="product_name" class="form-control" />
     <span id="error_product_name" class="text-danger"></span>
-   </div>
-   <div class="form-group">
-    <label>Price Product </label>
-    <input type="text" name="price" id="price" class="form-control" />
-    <span id="error_price" class="text-danger"></span>
-   </div>
+            </div>
+            <div class="form-group">
+                <label>Price Product </label>
+                <input type="text" name="price" id="price" class="form-control" />
+                <span id="error_price" class="text-danger"></span>
+            </div>
 
-   <div class="form-group">
-    <label>Quantity</label>
-    <input type="text" name="quantity" id="quantity" class="form-control" />
-    <span id="error_price" class="text-danger"></span>
-   </div>
-<input type="hidden" name="hidden_product_id[]" id="product_id" class="product_id"/>
-<input type="hidden" name="hidden_mainQuant[]" id="mquant" class="product_id"/>
-   <div class="form-group" align="center">
-    <input type="hidden" name="row_id" id="hidden_row_id" />
-    <button type="button" name="save" id="save" class="btn btn-info">Save</button>
-   </div>
-  </div>
-  <div id="action_alert" title="Action">
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="text" name="quantity" id="quantity" class="form-control" />
+                <span id="error_price" class="text-danger"></span>
+            </div>
+            <input type="hidden" name="hidden_product_id[]" id="product_id" class="product_id" />
+            <input type="hidden" name="hidden_mainQuant[]" id="mquant" class="product_id" />
+            <div class="form-group" align="center">
+                <input type="hidden" name="row_id" id="hidden_row_id" />
+                <button type="button" name="save" id="save" class="btn btn-info">Save</button>
+            </div>
+            </div>
+            <div id="action_alert" title="Action">
 
-  </div>
-    </body>  
-</html> 
+            </div>
+
+
+
+
+        </body>
+
+</html>
 
 <script>  
 $(document).ready(function(){ 
@@ -219,7 +266,7 @@ var tot=0;
     output = '<td>'+product_name+' <input type="hidden" name="hidden_product_name[]" id="product_name'+row_id+'" class="product_name" value="'+product_name+'" /></td>';
 
      output += '<td>'+price+' <input type="hidden" name="hidden_price[]" id="price'+count+'" value="'+price+'" /></td>';
-      output += '<td>'+quantity+' <input type="hidden" class="price" name="hidden_price[]" id="quantity'+count+'" value="'+quantity+'" /></td>';
+      output += '<td>'+quantity+' <input type="hidden" class="price" name="hidden_quantity[]" id="quantity'+count+'" value="'+quantity+'" /></td>';
 
 output += '<td>'+total+' <input type="hidden" class="totalprice" name="total[]" id="total'+count+'" value="'+total+'" /></td>';
 // total +=total
@@ -293,12 +340,8 @@ output += '<td>'+total+' <input type="hidden" class="totalprice" name="total[]" 
      $('#action_alert').html('<p>Data Inserted Successfully</p>');
      $('#action_alert').dialog('open');
     }
-  
-
                      }) ;
  
-
-
   }
   else
   {
@@ -311,15 +354,15 @@ output += '<td>'+total+' <input type="hidden" class="totalprice" name="total[]" 
 
 </script>
 
- <!-- Bootstrap core JavaScript-->
+<!-- Bootstrap core JavaScript-->
 
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <script src="js/sb-admin.min.js"></script>
-        
-        
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="js/sb-admin.min.js"></script>
 
-      <script>
+
+
+<script>
             function gettotal(total){
 var table = document.getElementById("user_data"), sumVal=total;
             
@@ -335,10 +378,10 @@ var table = document.getElementById("user_data"), sumVal=total;
             
             
         </script>
-        
 
 
-   <script type="text/javascript">
+
+<script type="text/javascript">
                     
            $(document).ready(function (e){ 
 
@@ -347,19 +390,17 @@ var table = document.getElementById("user_data"), sumVal=total;
                     var catID=$("#date").val();
 
 });
-
             $("#product_name").change(function(){
                     var code=$("#product_name").val();
                     var catID=$("#date").val();
 
-                       $.post("createInvoiceQuery.php?codeval",{code:code},function(data){
+                       $.post("query/createInvoiceQuery.php?codeval",{code:code},function(data){
 
 						 $("#product_name").val(data[0])
 						  $("#code").val(data[1])
 						   $("#price").val(data[2])
                             $("#product_id").val(data[3])
-                               $("#mquant").val(data[4])
-                         
+                               $("#mquant").val(data[4])                      
                      })                    
                 });
 });
@@ -369,4 +410,5 @@ var table = document.getElementById("user_data"), sumVal=total;
 
 
 </body>
+
 </html>

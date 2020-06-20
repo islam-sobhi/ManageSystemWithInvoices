@@ -1,7 +1,7 @@
 <?php
 
 
-include('config.php'); 
+include('query/config.php'); 
 
 
 
@@ -53,29 +53,6 @@ for($count = 0; $count<count($_POST['hidden_mainQuant']); $count++)
 
 }
 
-//  header("Location: invoice.php");
           header("location: Allinvoice.php");
 
-//echo json_encode($ordno); 
-
-if(isset($_GET['operation']) =="delete")
-  {
-		if(isset($_GET['ord_no'])&&$_GET['ord_no'] !=""){
-			$del=$con->query("delete from `order` where ord_id='{$_GET['ord_no']}'");
-			if (mysqli_affected_rows($con)==1) {
-        			$del=$con->query("delete from `ord_prod` where ord_id='{$_GET['ord_no']}'");
-           header("location: Allinvoice.php");
-               
-			}else{
-                echo "<script>alert('حدث خطأ فى  عملية الحذف ');</script>";  
-            }
-          header("location: Allinvoice.php");
-		}
-	
-}
-
-// echo json_encode($prodid[0]); 
-//  echo json_encode($q); 
-   
-    
 ?>

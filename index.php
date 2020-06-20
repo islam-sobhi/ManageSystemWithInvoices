@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Prducts</title>
+  <title>Manage Prducts</title>
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -17,6 +17,18 @@
     <script src="../invoiceSystem/js2/ajax.js"></script>
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
+  <style>
+    #contentDiv {
+      position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+   background-position: right bottom, left top;
+  background-repeat: no-repeat, repeat;
+}
+  
+  </style>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -24,13 +36,13 @@
 
     <div class="content-wrapper">
       
-      <div id="contentDiv" class="container">
-      
-      <img src="images/250618.p.jpg" width="100%" height="100%"/>
-   
-      
+      <div id="v" class="container">
+        <video autoplay muted loop id="contentDiv">
+            <source src="images/bg.mp4" type="video/mp4" loop>
+            <source src="images/bg.ogg" type="video/ogg">
+        </video>
       </div>
-      
+      </div>
       
     <!-- /.content-wrapper-->
    
